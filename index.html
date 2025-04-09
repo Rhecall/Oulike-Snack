@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oulike Snacks - Dimsum, Risoles & Cireng Lezat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables untuk Warna */
+        :root {
+            --primary-color: #ff5c8d; /* Pink Cerah */
+            --secondary-color: #ff8fb1; /* Pink Medium */
+            --accent-color: #ffc2d1; /* Pink Muda */
+            --bg-light: #fef6f9; /* Background Sangat Muda */
+            --bg-white: #ffffff;
+            --text-dark: #333333;
+            --text-medium: #555555;
+            --text-light: #666666;
+            --star-color: #FFD700; /* Warna bintang emas */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(255, 92, 141, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth; /* Animasi scroll halus */
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px var(--shadow-medium);
+            position: sticky; /* Membuat header tetap di atas */
+            top: 0;
+            z-index: 1000; /* Memastikan header di atas elemen lain */
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: var(--bg-white);
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--bg-white);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--accent-color), #ffe0e9); /* Gradient halus */
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 50vh; /* Tinggi minimal */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 35px;
+            color: var(--text-medium);
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            border: none;
+            padding: 14px 32px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 92, 141, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05); /* Efek naik & membesar */
+            box-shadow: 0 8px 25px var(--shadow-hover);
+        }
+
+        .menu-section {
+            padding: 60px 20px;
+            max-width: 1100px; /* Lebar maksimal diperbesar */
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem; /* Ukuran judul section diperbesar */
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+            position: relative; /* Untuk garis bawah */
+            padding-bottom: 10px;
+        }
+
+        /* Garis bawah dekoratif untuk judul section */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .price-list {
+            background-color: transparent; /* Hapus background putih solid */
+            padding: 0; /* Hapus padding */
+            border-radius: 0;
+            margin: 0 -15px; /* Kompensasi padding container */
+            box-shadow: none; /* Hapus shadow */
+            display: grid; /* Gunakan grid untuk layout produk */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Kolom responsif */
+            gap: 30px; /* Jarak antar kartu produk */
+        }
+
+        .product-category {
+            background-color: var(--bg-white);
+            border-radius: 20px; /* Lebih rounded */
+            padding: 30px;
+            box-shadow: 0 8px 25px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* Untuk mengatur tata letak internal */
+            flex-direction: column;
+            height: 100%; /* Agar semua kartu sama tinggi jika perlu */
+        }
+
+        .product-category:hover {
+            transform: translateY(-8px); /* Efek terangkat lebih jelas */
+            box-shadow: 0 12px 30px var(--shadow-medium);
+        }
+
+        .category-title {
+            background-color: var(--secondary-color);
+            color: var(--bg-white);
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-size: 1.3rem; /* Sedikit lebih besar */
+            margin-bottom: 15px;
+            font-weight: 600; /* Lebih tebal */
+            align-self: center; /* Tengahkan judul kategori */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Jarak antar item produk */
+            margin-top: auto; /* Mendorong list ke bawah jika ada ruang */
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Vertikal align */
+            border-bottom: 1px dashed var(--accent-color);
+            padding-bottom: 12px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            padding-left: 10px; /* Padding saat hover */
+            padding-right: 10px;
+            border-radius: 8px; /* Rounded corner saat hover */
+        }
+
+        .product-item:last-child {
+             border-bottom: none; /* Hilangkan border bawah item terakhir */
+        }
+
+        .product-item:hover {
+            background-color: #fff8fa; /* Warna highlight pink sangat muda */
+            transform: translateX(5px); /* Sedikit geser kanan */
+        }
+
+        .product-name {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--primary-color);
+            background-color: #ffeaf2; /* Background soft pink */
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+        }
+
+        .product-image-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0; /* Jarak atas bawah gambar */
+            overflow: hidden; /* Pastikan gambar tidak keluar dari border-radius jika diperlukan */
+            border-radius: 50%; /* Pindahkan border-radius ke container jika ingin mask */
+            width: 180px; /* Sesuaikan ukuran container */
+            height: 180px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-image {
+            width: 100%; /* Buat gambar mengisi container */
+            height: 100%;
+            object-fit: cover; /* Cover akan memotong gambar agar pas tanpa distorsi */
+            border: 6px solid var(--bg-white); /* Border tetap di gambar */
+            border-radius: 50%; /* Pastikan gambar juga rounded */
+            box-shadow: 0 6px 20px var(--shadow-medium);
+            transition: transform 0.3s ease;
+            display: block; /* Untuk menghindari spasi bawah */
+        }
+
+
+        .product-image:hover {
+             transform: scale(1.08); /* Efek zoom sedikit lebih besar */
+        }
+
+        .product-description {
+            text-align: center;
+            margin-bottom: 25px; /* Jarak deskripsi ke list harga */
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.95rem;
+            font-weight: 400; /* Sedikit lebih tebal */
+        }
+
+        .about {
+            background-color: #fff2f6; /* Warna background sedikit berbeda */
+            padding: 80px 20px;
+        }
+
+        .about-container {
+            max-width: 800px; /* Lebar container about */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: var(--text-medium);
+            font-weight: 300;
+            font-size: 1.05rem; /* Sedikit perbesar font */
+        }
+        .about-content p {
+            margin-bottom: 15px; /* Jarak antar paragraf */
+        }
+
+        /* === BAGIAN REVIEW === */
+        .reviews-section {
+            padding: 60px 20px;
+            background-color: var(--bg-white); /* Background putih untuk kontras */
+        }
+
+        .reviews-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid responsif */
+            gap: 30px; /* Jarak antar kartu review */
+        }
+
+        .review-card {
+            background-color: var(--bg-light); /* Background kartu sedikit beda */
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            border-left: 5px solid var(--accent-color); /* Aksen garis di kiri */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow-medium);
+        }
+
+        .review-rating {
+            margin-bottom: 15px;
+            color: var(--star-color);
+            font-size: 1.1rem;
+        }
+
+        .review-rating .fa-star {
+            margin-right: 2px; /* Sedikit jarak antar bintang */
+        }
+
+        .review-text {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .reviewer-name {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: right; /* Nama di kanan */
+        }
+        /* === AKHIR BAGIAN REVIEW === */
+
+
+        .contact {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Gradient kontak */
+            color: var(--bg-white);
+        }
+
+        .contact-container {
+            max-width: 800px; /* Lebar container kontak */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: var(--bg-white); /* Judul section putih */
+            margin-bottom: 20px;
+        }
+         .contact .section-title::after {
+            background-color: var(--bg-white); /* Garis bawah putih */
+        }
+
+        .contact-container > p { /* Styling untuk paragraf deskripsi kontak */
+             margin-bottom: 40px;
+             font-weight: 300;
+             font-size: 1.1rem;
+             color: rgba(255, 255, 255, 0.9); /* Putih agak transparan */
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px; /* Jarak antar item kontak */
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--bg-white);
+            padding: 30px; /* Padding lebih besar */
+            border-radius: 15px;
+            min-width: 280px; /* Lebar minimum item */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-item:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem; /* Icon lebih besar */
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            line-height: 1; /* Menghindari spasi ekstra */
+        }
+
+        .contact-text {
+            font-weight: 600; /* Lebih tebal */
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .contact-detail {
+            color: var(--text-light);
+            font-weight: 400; /* Sedikit tebal */
+            font-size: 1rem;
+            text-decoration: none; /* Hapus garis bawah default */
+        }
+         /* Styling khusus untuk link */
+        .contact-detail a {
+             color: var(--text-light);
+             text-decoration: none;
+             transition: color 0.3s ease;
+        }
+        .contact-detail a:hover {
+             color: var(--primary-color);
+             text-decoration: underline;
+        }
+
+
+        footer {
+            background-color: var(--bg-light);
+            color: var(--secondary-color); /* Warna teks footer */
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            font-weight: 400; /* Sedikit tebal */
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Jarak antar ikon sosial */
+            margin-bottom: 25px;
+        }
+
+        .social-icon {
+            width: 45px; /* Ukuran ikon diperbesar */
+            height: 45px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-white);
+            font-size: 1.4rem; /* Ukuran font ikon diperbesar */
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-4px) scale(1.1); /* Efek naik & besar */
+            background-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(255, 92, 141, 0.4);
+        }
+
+        /* Penyesuaian untuk layar lebih kecil */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .section-title {
+                 font-size: 1.8rem;
+            }
+            .price-list {
+                grid-template-columns: 1fr; /* Satu kolom di mobile */
+                margin: 0; /* Reset margin */
+            }
+            .reviews-container {
+                 grid-template-columns: 1fr; /* Satu kolom review di mobile */
+            }
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            .contact-item {
+                width: 90%; /* Lebar item kontak di mobile */
+                max-width: 320px;
+                min-width: unset;
+            }
+            .product-category {
+                padding: 25px;
+            }
+            .product-image-container {
+                 width: 150px;
+                 height: 150px;
+            }
+        }
+         @media (max-width: 480px) {
+             header { padding: 10px 0;}
+            .logo { font-size: 1.8rem; }
+            .tagline { font-size: 0.8rem; }
+            .hero { padding: 60px 15px; }
+             .hero-content h1 { font-size: 1.8rem; }
+            .cta-button { padding: 12px 28px; font-size: 0.9rem; }
+            .section-title { font-size: 1.6rem; }
+            .category-title { font-size: 1.1rem; }
+            .review-card { padding: 20px; }
+            .contact-item { padding: 25px;}
+            .contact-icon { font-size: 2rem;}
+            .contact-text { font-size: 1rem;}
+            .contact-detail { font-size: 0.9rem;}
+            .social-icon { width: 40px; height: 40px; font-size: 1.2rem;}
+         }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">OULIKE SNACKS</div>
+        <div class="tagline">yummy snacks for your tummy</div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Cemilan Lezat Buat Nemenin Hari-hari Kamu</h1>
+            <p>Cobain dimsum ayam original, risoles bolognese, dan cireng isi ayam suwir pedas dengan rasa homemade yang bikin nagih!</p>
+            <a href="#menu" class="cta-button">Lihat Menu Lengkap <i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">MENU KITA</h2>
+        <div class="price-list">
+            <div class="product-category">
+                <h3 class="category-title">DIMSUM</h3>
+                <div class="product-image-container">
+                     <img src="https://i.imgur.com/s5OLGlX.jpg" alt="Dimsum Ayam Original Oulike Snacks" class="product-image">
+                </div>
+                <p class="product-description">Dimsum Ayam Original Homemade</p>
+                <div class="product-list">
+                    <div class="product-item">
+                        <span class="product-name">MIX 4 PCS</span>
+                        <span class="product-price">12K</span>
+                    </div>
+                    <div class="product-item">
+                        <span class="product-name">MIX 20 PCS (Frozen/Matang)</span>
+                        <span class="product-price">55K</span>
+                    </div>
+                    <div class="product-item">
+                        <span class="product-name">MIX 50 PCS (Frozen/Matang)</span>
+                        <span class="product-price">135K</span>
+                    </div>
+                    <div class="product-item">
+                        <span class="product-name">MIX 100 PCS (Frozen/Matang)</span>
+                        <span class="product-price">270K</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-category">
+                <h3 class="category-title">RISOLES</h3>
+                 <div class="product-image-container">
+                     <img src="https://i.imgur.com/4Q1TJHH.jpg" alt="Risoles Bolognese Oulike Snacks" class="product-image">
+                </div>
+                <p class="product-description">Risoles Isi Saus Bolognese Gurih</p>
+                <div class="product-list">
+                    <div class="product-item">
+                        <span class="product-name">5 PCS (Frozen/Matang)</span>
+                        <span class="product-price">20K</span>
+                    </div>
+                    <div class="product-item">
+                        <span class="product-name">10 PCS (Frozen/Matang)</span>
+                        <span class="product-price">40K</span>
+                    </div>
+                     <div class="product-item">
+                        <span class="product-name">20 PCS (Frozen/Matang)</span>
+                        <span class="product-price">80K</span>
+                    </div>
+                     <div class="product-item">
+                        <span class="product-name">50 PCS (Frozen/Matang)</span>
+                        <span class="product-price">200K</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-category">
+                <h3 class="category-title">CIRENG</h3>
+                 <div class="product-image-container">
+                     <img src="https://i.imgur.com/4KoGM51.jpg" alt="Cireng Isi Ayam Suwir Pedas Oulike Snacks" class="product-image">
+                </div>
+                <p class="product-description">Cireng Crispy Isi Ayam Suwir Pedas Nampol</p>
+                <div class="product-list">
+                    <div class="product-item">
+                        <span class="product-name">5 PCS (Frozen/Matang)</span>
+                        <span class="product-price">17K</span>
+                    </div>
+                    <div class="product-item">
+                        <span class="product-name">10 PCS (Frozen/Matang)</span>
+                        <span class="product-price">35K</span>
+                    </div>
+                     <div class="product-item">
+                        <span class="product-name">20 PCS (Frozen/Matang)</span>
+                        <span class="product-price">70K</span>
+                    </div>
+                     <div class="product-item">
+                        <span class="product-name">50 PCS (Frozen/Matang)</span>
+                        <span class="product-price">175K</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-container">
+            <h2 class="section-title">Tentang Oulike Snacks</h2>
+            <div class="about-content">
+                <p>Oulike Snacks hadir dari dapur rumahan dengan cemilan homemade yang dibuat penuh cinta dan bahan-bahan pilihan berkualitas. Kami percaya makanan enak itu nggak harus mahal, yang penting rasanya juara dan bikin perut happy!</p>
+                <p>Setiap gigitan dari Dimsum Ayam, Risoles Bolognese, atau Cireng Ayam Suwir Pedas kami dijamin punya rasa yang konsisten dan bikin ketagihan. Cocok banget buat nemenin kamu saat santai, kerja, nonton, kumpul bareng teman, atau bahkan jadi ide hadiah simpel tapi spesial.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-section" id="reviews">
+        <h2 class="section-title">Kata Mereka ✨</h2>
+        <div class="reviews-container">
+            <div class="review-card">
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Dimsumnya juaraaa! Ayamnya berasa banget, gak kebanyakan tepung. Sausnya juga mantap pedesnya pas. Fix bakal repeat order lagi sih ini."</p>
+                <p class="reviewer-name">- Sade.</p>
+            </div>
+            <div class="review-card">
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i> </div>
+                <p class="review-text">"Cireng isi ayam suwirnya bikin nagih! Pedesnya nampol tapi enak. Udah gitu cirengnya tetep crispy walau udah agak dingin. Recommended!"</p>
+                <p class="reviewer-name">- Firda.</p>
+            </div>
+            <div class="review-card">
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Risoles Bolognese-nya endulita! Isiannya banyak, creamy, dagingnya berasa. Cocok banget buat ganjel perut sore-sore. Pelayanannya juga cepet & ramah."</p>
+                <p class="reviewer-name">- Kemal.</p>
+            </div>
+        </div>
+    </section>
+    <section class="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Pesan Sekarang!</h2>
+            <p>Tertarik buat cobain kelezatan Oulike Snacks? Pesan sekarang, gampang banget!</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                     <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                    <p class="contact-text">Order via DM Instagram:</p>
+                     <p class="contact-detail">
+                        <a href="https://www.instagram.com/oulike.snacks?igsh=ZXNubzA5am14Ym42&utm_source=qr" target="_blank" rel="noopener noreferrer">@oulike.snacks</a>
+                    </p>
+                </div>
+                <div class="contact-item">
+                     <div class="contact-icon"><i class="fas fa-motorcycle"></i></div>
+                    <p class="contact-text">Opsi Pengiriman:</p>
+                    <p class="contact-detail">GoSend · GrabExpress<br>ShopeeExpress Instant</p>
+                </div>
+                 <div class="contact-item">
+                     <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <p class="contact-text">Tanya-tanya via WhatsApp:</p>
+                    <p class="contact-detail">
+                        <a href="https://wa.me/6281319433112" target="_blank" rel="noopener noreferrer">Chat Admin</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://wa.me/6281319433112" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.instagram.com/oulike.snacks?igsh=ZXNubzA5am14Ym42&utm_source=qr" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Shopee"> <i class="fas fa-store"></i>
+            </a>
+        </div>
+        <p>&copy; 2025 Oulike Snacks &middot; Dibuat dengan ❤️ & Tepung</p>
+    </footer>
+
+</body>
+</html>
